@@ -6,3 +6,11 @@
 1667327641339 | Success
 1667327642608 | Success
 1667327666242 | Success
+1667331066507 | Success
+1667331457782 | Success
+1667331485703 | Error
+1667331528153 | Success
+1667333494790 | Success
+1667333500108 | Error
+ (pymysql.err.OperationalError) (1045, "Access denied for user 'admin'@'189.216.42.194' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

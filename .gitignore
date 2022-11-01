@@ -1,4 +1,7 @@
 # Byte-compiled / optimized / DLL files
+src_lambda_process/
+src_lambda_api/
+env_bitcoin/
 __pycache__/
 *.py[cod]
 *$py.class

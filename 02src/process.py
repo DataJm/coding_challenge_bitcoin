@@ -11,6 +11,8 @@ archivo = open("main_logs.txt", "a")
 # Current time: 
 date_now = round(time.time() * 1000)
 
+cadenaConexion = 'mysql+pymysql://admin:ActTG0suTbdIROlYmwnG@database-bitcoin.c6hom09gkozn.us-east-2.rds.amazonaws.com/coins'
+
 try: 
     # Build daily url
     url_daily = f"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
@@ -18,7 +20,7 @@ try:
 
     btc_daily = btc_daily["bitcoin"]["usd"]
 
-    engine = create_engine("sqlite:///./data/coins.sqlite")
+    engine = create_engine(cadenaConexion)
 
     # Base
     Base = automap_base()
@@ -38,8 +40,12 @@ try:
     session.commit()
     session.close()
     engine.dispose()
-    archivo.writelines(f"{date_now} | Success\n")
-except:
-    archivo.writelines(f"{date_now} | Error\n")
+    mensaje = f"{date_now} | Success\n"
+    print(mensaje)
+    archivo.writelines(mensaje)
+except Exception as E:
+    mensaje = f"{date_now} | Error\n {E}"
+    print(mensaje)
+    archivo.writelines(mensaje)
 
 archivo.close()

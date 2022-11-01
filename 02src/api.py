@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 import pandas as pd
 import os
 
+cadenaConexion = 'mysql+pymysql://admin:ActTG0suTbdIROlYmwnG@database-bitcoin.c6hom09gkozn.us-east-2.rds.amazonaws.com/coins'
+
 #################################################
 # Flask Setup
 #################################################
@@ -19,7 +21,7 @@ def welcome():
 @app.route("/bictoin_usd")
 def return_show_info():
 
-    engine = create_engine("sqlite:///./data/coins.sqlite")
+    engine = create_engine(cadenaConexion)
     Base   = automap_base()
 
     Base.prepare(engine, reflect=True)
@@ -40,7 +42,7 @@ def return_show_info():
 
     # Filter Q1
     results                = results.query("date>='2022-01-01' and date<='2022-03-31'")
-    results["date_string"] = results["date"].dt.strftime("%Y-%m-%d")
+    results["date_string"] = [x.strftime("%Y-%m-%d") for x in results["date"]]
 
     # Group by
     results = results.groupby("date_string")[["price"]].mean().reset_index()
